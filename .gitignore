@@ -1,0 +1,8 @@
+.env
+backup.md
+node_modules
+dist
+.vscode
+nyc_output
+coverage
+.nyc_output
