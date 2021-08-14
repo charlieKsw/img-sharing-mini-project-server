@@ -42,3 +42,19 @@ export const getUserPost = (email) => {
 		}
 	});
 };
+
+export const deleteUserPost = (userPostId: number, email: string) => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			const connection = establishConnection();
+			const repo = connection.getRepository(UserPost);
+			const query = `DELETE FROM user_post WHERE email ILIKE '${email}' AND id = '${userPostId}'`;
+			const deletedUserPost = await repo.query(query);
+			if (deletedUserPost) return resolve(true);
+			return resolve(false);
+		} catch (e) {
+			console.log('Cannot delete user post', e);
+			return reject('Cannot delete user post');
+		}
+	});
+};

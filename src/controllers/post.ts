@@ -24,3 +24,16 @@ export const getUserPost = async (req, res) => {
 		return Utils.returnApiResponse(res, { error: `Error in getting user post - ${e}` }, 500);
 	}
 };
+
+export const deleteUserPost = async (req, res) => {
+	try {
+		await Utils.checkRequiredFields(req.params, [ 'id' ]);
+		let userPostId = req.params.id;
+		let { email } = req.user;
+		let postDeleted = await Post.deleteUserPost(userPostId, email);
+		if (postDeleted) return Utils.returnApiResponse(res, { success: true, message: `Post deleted successfully` });
+		return Utils.returnApiResponse(res, { error: 'Failed to delete user post' });
+	} catch (e) {
+		return Utils.returnApiResponse(res, { error: `Error in delete user post - ${e}` }, 500);
+	}
+};

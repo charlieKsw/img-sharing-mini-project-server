@@ -21,19 +21,24 @@ app.get('/', (_, res) => {
 // Sample API
 app.post('/create-sample', Controllers.createSample);
 
-// Admin APIs for Login && Sign up
+// User APIs for Login & Sign up
 app.post('/login', Controllers.login);
 app.post('/sign-up', Controllers.createUser); // Middleware.jwtVerify,
 
-// Password
+// Update Password
 app.post('/reset-password', Middleware.jwtVerify, Controllers.updateResetPassword);
 
 // Get all users
 app.get('/users', Middleware.jwtVerify, Controllers.getAdminUserInfo);
 
-// Get all posts
+// Create Media posts
 app.post('/create-post', Middleware.jwtVerify, Controllers.createPost);
+
+// Get all Media posts
 app.get('/get-post', Middleware.jwtVerify, Controllers.getUserPost);
+
+// Delete Media Post
+app.delete('/user-post/:id', Middleware.jwtVerify, Controllers.deleteUserPost);
 
 app.listen(port, () => {
 	console.log(`server is listening on ${port}`);
